@@ -115,6 +115,7 @@ function markerClick(saleId, fromList = false) {
 	}
 	// Reset
 	if (activeSalePolygons.getLayers() != null) activeSalePolygons.clearLayers().remove()
+	// @ts-ignore
 	activeSale.area = 0
 	// Register properties which share area/teig to prevent area duplicates
 	let matNumbTexts = []
@@ -138,11 +139,13 @@ function markerClick(saleId, fromList = false) {
 							return txt
 						})
 						.addTo(activeSalePolygons)
+					// @ts-ignore
 					activeSale.area += turf.area(data)
 					matNumbTexts.push(data.features[0].properties.matrikkelnummertekst)
 				}
 			})
 	})
+	// @ts-ignore
 	activeSale.sale = sales[i]
 	showModal = true
 }
@@ -254,7 +257,3 @@ main {
 	}
 }
 </style>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
