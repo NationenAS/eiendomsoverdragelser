@@ -241,7 +241,7 @@ function filterArr(sales, config) {
 main {
 	font-family: "Open Sans", sans-serif;
 	font-size: 16px;
-	width: 960px;
+	width: 980px;
 	max-width: 100%;
 	margin: 0 auto;
 }
@@ -249,7 +249,7 @@ main {
 	position: relative;
 }
 .map {
-	height: 500px;
+	height: 560px;
 }
 .description {
 	margin: 5px auto;
