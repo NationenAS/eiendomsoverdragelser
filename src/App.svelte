@@ -250,6 +250,7 @@ main {
 }
 .map {
 	height: 560px;
+	border-radius: 3px;
 }
 .description {
 	margin: 5px auto;
