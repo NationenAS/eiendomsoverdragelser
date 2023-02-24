@@ -1,9 +1,9 @@
 <script>
 
 import { createEventDispatcher } from 'svelte'
-import Penger from "./Penger.svelte"
-import Linjal from "./Linjal.svelte"
-import Arrow from "./Arrow.svelte"
+import Penger from "./Icons/Penger.svelte"
+import Linjal from "./Icons/Linjal.svelte"
+import Arrow from "./Icons/Arrow.svelte"
 
 const dispatch = createEventDispatcher()
 const close = () => { dispatch('close') }
@@ -64,7 +64,6 @@ $: date = new Date(activeSale.sale.date)
 <style>
     .sale-modal {
         font-size: 16px;
-        font-family: adelle_sansregular;
         position: absolute;
         width: 300px;
         max-width: 33%;
@@ -114,7 +113,6 @@ $: date = new Date(activeSale.sale.date)
         list-style: none;
     }
     li {
-        font-family: adelle_sansregular;
         line-height: 1.25;
     }
     .pref {

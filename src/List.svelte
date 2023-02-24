@@ -27,28 +27,34 @@ function getLocalDateFormat(date) {
 }
 
 </script>
-
-<div class=list-heading>Lista nedenfor viser salg som er synlige i kartet. &darr; Trykk på et salg for å se mer. Du kan også sortere lista på dato/pris.</div>
-<div class=list-container>
-	<div>
+<div class="list">
+	<div class=list-heading>Lista nedenfor viser salg som er synlige i kartet. <strong>&darr;</strong> Trykk på et salg for å se mer. Du kan også sortere lista på dato/pris.</div>
+	<div class=list-container>
+		<div>
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<div on:click={() => { sortBy(1) }} style="cursor: pointer;">Dato</div>
+			<div>Kommune</div>
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<div on:click={() => { sortBy(3) }} style="cursor: pointer;">Salgssum</div>
+		</div>
+		{#each activeListItems as sale}
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
-		<div on:click={() => { sortBy(1) }} style="cursor: pointer;">Dato</div>
-		<div>Kommune</div>
-		<!-- svelte-ignore a11y-click-events-have-key-events -->
-		<div on:click={() => { sortBy(3) }} style="cursor: pointer;">Salgssum</div>
+		<div on:click={rowClick(sale[0])}>
+			<div>{getLocalDateFormat(sale[1])}</div>
+			<div>{sale[2]}</div>
+			<div>{sale[3].toLocaleString()} kr</div>
+		</div>
+		{/each}
+		<Pagination rows={sortedRows} perPage={15} bind:trimmedRows={activeListItems} />
 	</div>
-	{#each activeListItems as sale}
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-	<div on:click={rowClick(sale[0])}>
-		<div>{getLocalDateFormat(sale[1])}</div>
-		<div>{sale[2]}</div>
-		<div>{sale[3].toLocaleString()} kr</div>
-	</div>
-	{/each}
-	<Pagination rows={sortedRows} perPage={15} bind:trimmedRows={activeListItems} />
 </div>
 
 <style>
+.list {
+	width: 630px;
+	max-width: 100%;
+	margin: 0 auto;
+}
 .list-heading {
 	margin-top: 15px;
 	font-size: 14px;

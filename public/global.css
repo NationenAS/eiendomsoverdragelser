@@ -1,3 +1,8 @@
+/* Global */
+body {
+	margin: 0;
+}
+
 /* Cluster */
 .leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
 	-webkit-transition: -webkit-transform 0.3s ease-out, opacity 0.3s ease-in;
@@ -15,7 +20,6 @@
 .marker-cluster-small div {	background-color: hsl(50, 100%, 65%); }
 .marker-cluster-medium div { background-color: hsl(40, 100%, 50%); }
 .marker-cluster-large div { background-color: hsl(30, 100%, 45%); }
-
 .marker-cluster {
 	background-clip: padding-box;
 	border-radius: 20px;
@@ -41,7 +45,7 @@
     width: 23px;
     height: 33.6px;
     transform: translate(-6px, -27.6px);
-	fill: #305205;
+	fill: #3a4e20;
 }
 .map-marker.free-sale svg {
 	fill: #006a95;

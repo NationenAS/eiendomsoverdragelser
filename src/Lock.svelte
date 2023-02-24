@@ -48,9 +48,19 @@ function toggle(state) { dispatch( 'toggleLock', { state: state } ) }
     background: rgba(255, 255, 255, 0.45);
     font-size: 15px;
     font-family: adelle_sansbold;
-    text-decoration: underline;
 }
 .locked div {
-    padding: 30px;
+    background: var(--green);
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    padding: 0.67rem 1rem;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+}
+.locked div:hover {
+    background: var(--dark-green);
 }
 </style>

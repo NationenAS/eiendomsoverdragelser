@@ -15,7 +15,9 @@ let expand = false
 
 <style>
     .help {
-        margin: 10px 0 15px;
+        width: 630px;
+        max-width: 100%;
+        margin: 0 auto;
     }
     svg {
         transition: .2s ease-in;
@@ -28,6 +30,7 @@ let expand = false
     }
     .help > div {
         display: none;
+        margin-bottom: 15px;
     }
     .help.open > div {
         display: block;
@@ -36,13 +39,13 @@ let expand = false
         transform: scale(-1);
     }
     h4 {
-        font-family: adelle_sansregular, "Adelle Sans";   
         cursor: pointer;
         margin-bottom: 10px;
         margin-top: 0 !important;
     }
     p {
         margin-block: 10px !important;
-        line-height: 1.35;
+        line-height: 1.3;
+        font-size: 15px;
     }
 </style>

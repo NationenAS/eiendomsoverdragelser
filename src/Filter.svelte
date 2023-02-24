@@ -3,13 +3,18 @@
 import { createEventDispatcher } from 'svelte'
 const dispatch = createEventDispatcher()
 
+let priceMin,
+    priceMax,
+    saleType = "Alle",
+    propType = "Alle"
+
 function setConfig() {
 
     let salesConfig = {
         price: {
 			filter: false,
-			min: 0,
-			max: 0
+			min: priceMin,
+			max: priceMax
 		},
 		type: {
 			filter: false,
@@ -21,54 +26,38 @@ function setConfig() {
 		}
     }
 
-    //filter price
-    let min = document.querySelector('#price-min')
-    let max = document.querySelector('#price-max')
+    // Filter price
+    let min = priceMin
+    let max = priceMax
 
-    if((min.value != "") || (max.value != "") ) {
-    
-    salesConfig.price.filter = true;
-    if(min.value === '') {salesConfig.price.min = 0} else {salesConfig.price.min = parseInt(min.value)}
-    if(max.value === '') {salesConfig.price.max = 1000000000} else {salesConfig.price.max = parseInt(max.value)}      
-    
+    if ((min.value != "") || (max.value != "") ) {
+        salesConfig.price.filter = true
+        if(min.value === '') {salesConfig.price.min = 0} else {salesConfig.price.min = parseInt(min.value)}
+        if(max.value === '') {salesConfig.price.max = 1000000000} else {salesConfig.price.max = parseInt(max.value)}      
     } else {
-    salesConfig.price.filter = false;
+        salesConfig.price.filter = false
     }
 
-    //filter fritt salg
-    if(document.querySelector('#fritt-salg').checked == true) {
-    salesConfig.type.filter = true;
-    } else {
-    salesConfig.type.filter = false;
-    }
+    // Filter fritt salg
+    salesConfig.type.filter = saleType !== "Alle" ? true : false
 
-    //filter prop
-    if(document.querySelector('#alle').checked === false) {
-      salesConfig.prop.filter = true;
-      salesConfig.prop.type = [];
-      let value;
-      let ele = document.getElementsByName('prop-type');
-              
-      for(let i = 0; i < ele.length; i++) {
-          if(ele[i].checked){
-            value = ele[i].value;
-          }                
-      }
-
-      switch(value){
-      case "Bolig":
-        salesConfig.prop.type = ['Frittliggende bolig', 'Rekkehus/kjede', 'Tomannsbolig' ];
-        break;
-      case "Annen":
-        salesConfig.prop.type = ['Annen bygning.'];
-        break;
-      case "Ubebygget":
-        salesConfig.prop.type = ['Ubebygget'];
-        break;
+    // Filter prop
+    if (propType !== "Alle") {
+      salesConfig.prop.filter = true
+      switch(propType) {
+        case "Bolig":
+            salesConfig.prop.type = ['Frittliggende bolig', 'Rekkehus/kjede', 'Tomannsbolig' ]
+            break
+        case "Annen":
+            salesConfig.prop.type = ['Annen bygning.']
+            break
+        case "Ubebygget":
+            salesConfig.prop.type = ['Ubebygget']
+            break
       } 
-
-    } else {
-      salesConfig.prop.filter = false;
+    } 
+    else {
+      salesConfig.prop.filter = false
     }  
 
     dispatch( 'setFilters', { config: salesConfig } )
@@ -76,11 +65,10 @@ function setConfig() {
 }
 
 function reset() {
-    document.querySelector('#price-min').value = '';
-    document.querySelector('#price-max').value = '';
-    document.querySelector('#alle-salg').checked = true;
-    document.querySelector('#alle').checked = true;
-
+    priceMin = ''
+    priceMax = ''
+    saleType = "Alle"
+    propType = "Alle"
     setConfig()
 }
 
@@ -99,20 +87,20 @@ let hidden = false
     <form>
         <div class="input-group">
             <div class="group-heading">Salgspris</div>
-            <label for="price-min"><span class="fromto">Fra</span><input type="number" id="price-min" name="price-min" min="0" max="10000000" steps="100000"> kr</label>
-            <label for="price-max"><span class="fromto">Til</span><input type="number" id="price-max" name="price-max" min="0" max="100000000" steps="100000"> kr</label>
+            <label for="price-min"><span class="fromto">Fra</span><input type="number" id="price-min" name="price-min" min="0" max="10000000" step="100000" bind:this={priceMin}> kr</label>
+            <label for="price-max"><span class="fromto">Til</span><input type="number" id="price-max" name="price-max" min="0" max="100000000" step="100000" bind:this={priceMax}> kr</label>
         </div>
         <div class="input-group">
             <div class="group-heading">Omsetningstype</div>
-            <label for="alle-salg"><input type="radio" id="alle-salg" name="sales-type" value="Alle" checked> Alle</label>   
-            <label for="fritt-salg"><input type="radio" id="fritt-salg" name="sales-type" value="Fritt salg"> Fritt salg</label>   
+            <label for="alle-salg"><input type="radio" id="alle-salg" name="sales-type" bind:group={saleType} value={"Alle"}> Alle</label>   
+            <label for="fritt-salg"><input type="radio" id="fritt-salg" name="sales-type" bind:group={saleType} value={"Fritt salg"}> Fritt salg</label>   
         </div>
         <div class="input-group">
             <div class="group-heading">Bebyggelse</div>
-            <label for="alle"><input type="radio" id="alle" name="prop-type" value="Alle" checked> Alle</label>
-            <label for="bolig"><input type="radio" id="bolig" name="prop-type" value="Bolig"> Bolig</label>
-            <label for="annen"><input type="radio" id="annen" name="prop-type" value="Annen"> Annen bebyggelse</label>
-            <label for="ubebygd"><input type="radio" id="ubebygd" name="prop-type" value="Ubebygget"> Ubebygd</label>
+            <label for="alle"><input type="radio" id="alle" name="prop-type" bind:group={propType} value={"Alle"}> Alle</label>
+            <label for="bolig"><input type="radio" id="bolig" name="prop-type" bind:group={propType} value={"Bolig"}> Bolig</label>
+            <label for="annen"><input type="radio" id="annen" name="prop-type" bind:group={propType} value={"Annen"}> Annen bebyggelse</label>
+            <label for="ubebygd"><input type="radio" id="ubebygd" name="prop-type" bind:group={propType} value={"Ubebygget"}> Ubebygd</label>
         </div>
         <div class="submit">
             <button type="submit" on:click={(event) => {event.preventDefault(); setConfig()}} on:keypress={(event) => {event.preventDefault(); setConfig()}}>Filtrer</button>
@@ -122,6 +110,10 @@ let hidden = false
 </div>
 
 <style>
+.filter-button, 
+.filter-modal {
+    font-family: "Open Sans", sans-serif;
+}
 .filter-button {
     position: absolute;
     left: 10px;
@@ -131,16 +123,16 @@ let hidden = false
     border-radius: 4px;
     border: 2px solid rgba(0,0,0,0.35);
     cursor: pointer;
-    font-family: adelle_sansbold, "Adelle Sans";
-    font-size: 15px;
     padding: 5px 8px;
+    font-size: 14px;
+    font-weight: 600;
 }
 .filter-button:hover {
     background: #f4f4f4;
 }
 .filter-modal {
-    font-size: 16px;
-    font-family: adelle_sansregular, "Adelle Sans";
+    font-size: 14px;
+    line-height: 1.35;
     position: absolute;
     width: 250px;
     max-width: 33%;
@@ -154,8 +146,7 @@ let hidden = false
     border-radius: 5px;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.35);
     transition: .4s ease-in;
-    line-height: 1.3;
-    accent-color: #4d6711;
+    accent-color: var(--green);
     --vertical: 15px;
 }
 form {
@@ -185,9 +176,8 @@ polyline {
     fill: none;
 }
 .group-heading {
-    margin-bottom: 3px;
+    margin-bottom: 5px;
     font-size: 15px;
-    font-family: adelle_sansbold, "Adelle Sans";
     font-weight: bold;
 }
 .fromto {
@@ -201,7 +191,7 @@ label {
     margin: 0;
 }
 input[type=number] {
-    margin-block: 2px;
+    margin-bottom: 2px;
     border: none;
     border-bottom: 1px solid black;
     padding: 2px;
@@ -210,7 +200,7 @@ input[type=number] {
     outline: none;
     font-size: 15px;
     -moz-appearance: textfield;
-    font-family: adelle_sansregular, "Adelle Sans";
+    appearance: textfield;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -226,7 +216,7 @@ input[type=radio] {
     align-items: center;
 }
 .submit button {
-    background: #4d6711;
+    background: var(--green);
     color: white;
     border: none;
     border-radius: 3px;
@@ -236,7 +226,7 @@ input[type=radio] {
     flex: 1;
 }
 button:hover {
-    background-color: #64821c;
+    background-color: var(--dark-green);
 }
 .reset {
     text-decoration: underline;
@@ -246,7 +236,7 @@ button:hover {
 .reset:hover {
     color: darkgrey;
 }
-@media (max-width: 680px) {
+@media (max-width: 630px) {
         .filter-modal {
             left: 10px;
             bottom: 10px;

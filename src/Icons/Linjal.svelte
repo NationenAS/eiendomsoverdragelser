@@ -7,7 +7,7 @@
     }
     svg > * {
         fill:none;
-        stroke:#2d4a08;
+        stroke:var(--dark-green);
         stroke-miterlimit:10;
         stroke-width:.8px;
     }

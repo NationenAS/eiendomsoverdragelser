@@ -15,11 +15,12 @@ export let reverse
     }
     polyline {
         fill:none;
-        stroke:#d1002d;
+        stroke:#bf5b21;
         stroke-linecap:round;
         stroke-linejoin:round;
-        stroke-width:.7px;}
+        stroke-width:.7px;
+    }
     .reverse polyline {
-        stroke: #2d4a08;
+        stroke: var(--dark-green);
     }
 </style>

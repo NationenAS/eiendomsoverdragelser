@@ -199,7 +199,13 @@ function filterArr(sales, config) {
 }
 
 </script>
+
 <svelte:window on:resize={resizeMap} />
+<svelte:head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</svelte:head>
 
 <main>
 
@@ -212,12 +218,12 @@ function filterArr(sales, config) {
 		{#if isMobile}<Lock on:toggleLock={(event) => { setLock(event.detail.state) }} {locked} />{/if}
 	</div>
 </div>
+<div class="description">
+	Beregnet eiendomsareal kan avvike noe fra faktisk areal. Informasjon/kartdata om eiendommene leveres av Kartverket.
+</div>
 {#if showList == "show"}
 <List rows={salesInView} on:rowClick={(event) => markerClick(event.detail.id, true)} />
 {/if}
-<div class="description">
-	Vi tar forbehold om at beregnet eiendomsareal kan avvike noe fra faktisk areal. Informasjon/kartdata om eiendommene leveres av Kartverket.
-</div>
 
 </main>
 
@@ -228,32 +234,27 @@ function filterArr(sales, config) {
 </svg>
 
 <style>
+:global(main){
+    --green: #406619;
+	--dark-green: #3a4e20;
+}
 main {
-	font-family: adelle_sansregular, "Adelle Sans";
+	font-family: "Open Sans", sans-serif;
 	font-size: 16px;
-	clear: both;
+	width: 960px;
+	max-width: 100%;
+	margin: 0 auto;
 }
 .map-container {
 	position: relative;
 }
 .map {
-	height: 860px;
-	max-height: 70vh;
+	height: 500px;
 }
 .description {
-	margin: 10px auto;
+	margin: 5px auto;
 	font-size: 0.8em;
 	color: #666;
 	line-height: 1.25;
-}
-@media (max-width:680px) {
-	.map {
-		margin: 0 -30px;
-	}
-}
-@media (min-width: 992px) {
-	.map {
-		margin: 0 -163.333333px;
-	}
 }
 </style>
