@@ -235,7 +235,7 @@ button:hover {
 .reset:hover {
     color: darkgrey;
 }
-@media (max-width: 630px) {
+@media (max-width: 629px) {
     .filter-modal {
         left: 10px;
         bottom: 10px;

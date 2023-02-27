@@ -154,7 +154,7 @@ $: date = new Date(activeSale.sale.date)
         font-size: 0.9em;
         line-height: 1.15;
     }
-    @media (max-width: 680px) {
+    @media (max-width: 629px) {
         .sale-modal {
             left: 10px;
             bottom: 10px;
