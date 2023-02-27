@@ -64,10 +64,12 @@ $: date = new Date(activeSale.sale.date)
 <style>
     .sale-modal {
         font-size: 16px;
+        font-family: "Open Sans", sans-serif;
         position: absolute;
         width: 300px;
-        max-width: 33%;
+        max-width: 50%;
         max-height: 500px;
+        overflow: hidden;
         bottom: 30px;
         right: 30px;
         padding: 25px 30px;
@@ -97,9 +99,9 @@ $: date = new Date(activeSale.sale.date)
         transition: none;
     }
     .multiple {
-        font-size: 0.9em;
+        font-size: 0.85em;
         margin-top: 5px;
-        line-height: 1.15;
+        line-height: 1.2;
     }
     span {
         text-decoration: underline;
@@ -118,9 +120,10 @@ $: date = new Date(activeSale.sale.date)
     .pref {
         margin-top: var(--vertical);
         display: grid;
-        grid-template-columns: 50px 1fr;
+        grid-template-columns: 45px 1fr;
         row-gap: calc(var(--vertical) / 2);
         align-items: center;
+        font-size: .95em;
     }
     .modal-nav {
         float: right;

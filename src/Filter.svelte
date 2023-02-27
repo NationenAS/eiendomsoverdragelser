@@ -135,8 +135,7 @@ let hidden = false
     line-height: 1.35;
     position: absolute;
     width: 250px;
-    max-width: 33%;
-    max-height: 500px;
+    max-width: 40%;
     bottom: 30px;
     left: 30px;
     padding: 25px 30px;
@@ -237,13 +236,13 @@ button:hover {
     color: darkgrey;
 }
 @media (max-width: 630px) {
-        .filter-modal {
-            left: 10px;
-            bottom: 10px;
-            right:10px;
-            max-width: unset;
-            width: unset;
-            --vertical: 10px;
-        }
+    .filter-modal {
+        left: 10px;
+        bottom: 10px;
+        right:10px;
+        max-width: unset;
+        width: unset;
+        --vertical: 10px;
     }
+}
 </style>
