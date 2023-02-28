@@ -66,7 +66,7 @@ $: date = new Date(activeSale.sale.date)
         font-size: 16px;
         font-family: "Open Sans", sans-serif;
         position: absolute;
-        width: 300px;
+        width: 240px;
         max-width: 50%;
         max-height: 500px;
         overflow: hidden;
