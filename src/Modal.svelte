@@ -84,7 +84,7 @@ $: date = new Date(activeSale.sale.date)
     }
     .sale-modal.closed {
         overflow-y: hidden;
-        max-height: 70px;
+        max-height: 25px;
         transition: none;
     }
     h3 {
