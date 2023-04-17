@@ -5,6 +5,7 @@ const dispatch = createEventDispatcher()
 
 let priceMin,
     priceMax,
+    hidden = true,
     saleType = "Alle",
     propType = "Alle"
 
@@ -71,8 +72,6 @@ function reset() {
     propType = "Alle"
     setConfig()
 }
-
-let hidden = false
 
 </script>
 
