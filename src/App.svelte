@@ -94,7 +94,7 @@ function update() {
 
 // Get data
 onMount(async () => {
-	fetch("https://api.nationen.no/kart/sales.json")
+	fetch("https://eiendomsoverdragelser-vercel.vercel.app/api/sales")
 		.then(response => response.json())
 		.then(data => {
 			sales = data
