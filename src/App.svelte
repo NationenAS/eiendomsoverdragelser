@@ -1,8 +1,11 @@
 <script>
 
 import { onMount } from "svelte"
+// @ts-ignore
 import { each } from "svelte/internal"
+// @ts-ignore
 import * as L from "leaflet"
+// @ts-ignore
 import { MarkerClusterGroup } from 'leaflet.markercluster';
 import * as turf from "@turf/turf"
 import Modal from "./Modal.svelte"
@@ -116,7 +119,7 @@ function markerClick(saleId, fromList = false) {
 	// Reset
 	if (activeSalePolygons.getLayers() != null) activeSalePolygons.clearLayers().remove()
 	// @ts-ignore
-	activeSale.area = 0
+	activeSale = {}
 	// Register properties which share area/teig to prevent area duplicates
 	let matNumbTexts = []
 	// Make layer group and add to map
@@ -132,6 +135,15 @@ function markerClick(saleId, fromList = false) {
 			.then(data => {
 				// Create marker if has geo and is not duplicate
 				if(data.features.length > 0 && !matNumbTexts.includes(data.features[0].properties.matrikkelnummertekst)) {
+                    // Takes all features of all matrikkelnumbers, union area, and update area calculation
+                    data.features.forEach(e => {
+                        // @ts-ignore
+                        if (!activeSale.features) activeSale.features = e
+                        // @ts-ignore
+                        else activeSale.features = turf.union(activeSale.features, e)
+                        // @ts-ignore
+                        activeSale.area = turf.area(activeSale.features)
+                    })
 					L.geoJSON(data, { style: { color: "red", fillOpacity: 0.4, weight: 0, } })
 						.bindPopup(() => {
 							let txt = p.matNumb + "<br>" + Math.round(turf.area(data) / 1000) + " dekar"
@@ -139,8 +151,6 @@ function markerClick(saleId, fromList = false) {
 							return txt
 						})
 						.addTo(activeSalePolygons)
-					// @ts-ignore
-					activeSale.area += turf.area(data)
 					matNumbTexts.push(data.features[0].properties.matrikkelnummertekst)
 				}
 			})
@@ -148,6 +158,7 @@ function markerClick(saleId, fromList = false) {
 	// @ts-ignore
 	activeSale.sale = sales[i]
 	showModal = true
+    console.log(activeSale)
 }
 function closeModal() { 
 	showModal = !showModal
@@ -157,7 +168,6 @@ function closeModal() {
 }
 function locateUser() {
 	showModal = false
-	activeSale = {}
 	map.locate({setView: true, maxZoom: 9});
 }
 function setLock(state) {
